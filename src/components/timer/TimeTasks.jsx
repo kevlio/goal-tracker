@@ -5,6 +5,7 @@ import { Flex, Button, Text } from "@chakra-ui/react";
 function TimeTasks({ task, timerOn, timerFunctions }) {
   return (
     <Flex
+      pointerEvents={timerOn && "none"}
       key={task.id}
       onClick={timerFunctions}
       alignItems="center"
@@ -23,16 +24,10 @@ function TimeTasks({ task, timerOn, timerFunctions }) {
         borderColor: "black",
         boxShadow: "0em 0em 0.1em 0.2em #ff006b",
       }}
-      // bg="rgba(0, 0, 0, 0.4)"
-      // variant="solid"
-
-      // padding="0.5em"
-      // fontSize={{ base: "100%", md: "120%" }}
-      // color={color}
-      // borderRadius="12px"
     >
       <Button
-        isDisabled={timerOn && true}
+        minWidth="30%"
+        justifyContent="flex-start"
         key={task.id}
         colorScheme="blackAlpha"
         m={1}

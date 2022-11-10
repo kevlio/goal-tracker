@@ -1,6 +1,54 @@
 {
   "users": [],
-  "projects": [],
-  "tasks": [],
-  "timelogs": []
+  "projects": [
+    {
+      "id": "e9f4346b-684e-4d61-9f87-eb0de50f33f5",
+      "user_id": "anonymous",
+      "name": "Projekt1 =)",
+      "description": "Testprojekt :)",
+      "deadline": "2022-11-10",
+      "color": "#641c73",
+      "isDone": false
+    }
+  ],
+  "tasks": [
+    {
+      "id": "9ed3b9aa-0a58-466f-b27c-60ffeed5b30f",
+      "name": "Task 1 =)",
+      "user_id": "anonymous",
+      "projectId": "e9f4346b-684e-4d61-9f87-eb0de50f33f5",
+      "deadline": "2022-11-10",
+      "color": "#321ca0",
+      "isDone": false
+    },
+    {
+      "id": "b32f1ae6-b512-406f-861a-84227fdeecff",
+      "name": "Task 2 :)",
+      "user_id": "anonymous",
+      "projectId": "e9f4346b-684e-4d61-9f87-eb0de50f33f5",
+      "deadline": "2022-11-10",
+      "color": "#4ef951",
+      "isDone": false
+    }
+  ],
+  "timelogs": [
+    {
+      "id": "c579af97-9c38-49a5-beb0-46f1ffdf2495",
+      "taskId": "b32f1ae6-b512-406f-861a-84227fdeecff",
+      "projectId": "e9f4346b-684e-4d61-9f87-eb0de50f33f5",
+      "user_id": "anonymous",
+      "duration": "00:00:23",
+      "startDate": "2022-11-10T15:55:45.349Z",
+      "stopDate": "2022-11-10T15:56:08.478Z"
+    },
+    {
+      "id": "651b1ff7-5f85-434a-bae8-342c6dfee606",
+      "taskId": "b32f1ae6-b512-406f-861a-84227fdeecff",
+      "projectId": "e9f4346b-684e-4d61-9f87-eb0de50f33f5",
+      "user_id": "anonymous",
+      "duration": "00:00:07",
+      "startDate": "2022-11-10T15:56:36.652Z",
+      "stopDate": "2022-11-10T15:56:44.037Z"
+    }
+  ]
 }

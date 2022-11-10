@@ -112,6 +112,7 @@ function Navbar() {
               onClick={() => {
                 setLoggedUser({ username: "anonymous", id: "anonymous" });
                 localStorage.setItem("userData", "");
+                localStorage.setItem("currentTimer", "");
               }}
             />
           </NavLink>

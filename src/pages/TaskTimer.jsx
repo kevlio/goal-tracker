@@ -46,15 +46,11 @@ function TaskTimer() {
   const intervalRef = useRef();
 
   const saveBackUpSession = () => {
-    if (state.timerOn) {
-      localStorage.setItem(
-        "currentTimer",
-        JSON.stringify({ state, taskTimer })
-      );
-    }
+    localStorage.setItem("currentTimer", JSON.stringify({ state, taskTimer }));
   };
 
   useEffect(() => {
+    if (location.pathname === "/") return;
     saveBackUpSession();
   }, [location]);
 
@@ -67,12 +63,25 @@ function TaskTimer() {
 
   useEffect(() => {
     if (sessionBackup) {
+      const timeNow = dayjs();
+      const backupStartDate = dayjs(sessionBackup.state.startDate);
+      const backupDuration = dayjs.duration(timeNow.diff(backupStartDate))[
+        "$ms"
+      ];
+
       setTaskTimer(sessionBackup.taskTimer);
       dispatch({
         type: "backup",
         backupStartDate: sessionBackup.state.startDate,
-        formattedDuration: sessionBackup.state.formattedDuration,
+        formattedDuration: sessionBackup.state.timerOn
+          ? ""
+          : sessionBackup.state.formattedDuration,
+        backupDuration: sessionBackup.state.timerOn
+          ? backupDuration
+          : sessionBackup.state.duration,
       });
+      if (sessionBackup.state.timerOn) handleStart();
+      else onToggle();
     } else {
       const filterSessions = taskTimes.filter((task) => {
         return task.id === taskTimer?.id;
@@ -116,14 +125,13 @@ function TaskTimer() {
     const id = setInterval(() => {
       const duration = !sessionBackup
         ? timer.current.ms()
-        : timer.current.ms() + sessionBackup?.state?.duration;
+        : timer.current.ms() + state?.backupDuration;
 
       const formattedDuration = dayjs(duration).utc().format("HH:mm:ss");
       dispatch({
         type: "tick",
         duration,
         formattedDuration,
-        backupDuration: 0,
       });
     }, 1000);
     intervalRef.current = id;
@@ -206,12 +214,12 @@ function TaskTimer() {
               wrap="wrap"
               justifyContent="flex-start"
               pb={2}
-              maxH="5em"
-              overflowY="scroll"
-              scrollBehavior="smooth"
+              // maxH="5em"
+              // overflowY="scroll"
+              // scrollBehavior="smooth"
             >
               {taskTimer.sessions?.reverse().map((sess) => (
-                <Flex alignItems="center" gap={1}>
+                <Flex alignItems="center" gap={1} key={sess.id}>
                   <RiDeleteBackLine
                     onClick={() => deleteTime(sess.id, sess.taskId)}
                     size={25}
@@ -256,9 +264,8 @@ function TaskTimer() {
                 timerOn={state.timerOn}
                 timerFunctions={() => {
                   setTaskTimer(task);
-                  localStorage.setItem("currentTimer", "");
-                  setSessionBackup();
                   dispatch({ type: "reset" });
+                  handleReset();
                 }}
               />
             ))}

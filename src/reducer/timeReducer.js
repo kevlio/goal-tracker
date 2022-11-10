@@ -19,7 +19,6 @@ export const timeReducer = (state, action) => {
         projectId: action.projectId,
         startDate: action.startDate,
         timerOn: true,
-        duration: action.duration,
       };
 
     case "tick":
@@ -38,6 +37,7 @@ export const timeReducer = (state, action) => {
       return {
         backupStartDate: action.startDate,
         formattedDuration: action.formattedDuration,
+        backupDuration: action.backupDuration,
         timerOn: false,
       };
 
